@@ -10,7 +10,7 @@ import Foundation
 print("Hello, World!")
 
 
-func problem_1() -> UInt {
+func problem_1_1() -> UInt {
     var result: UInt = 0
     let filename = "input-1.txt"
     let contents = try! String(contentsOfFile: filename)
@@ -24,7 +24,7 @@ func problem_1() -> UInt {
 
 }
 
-func problem_2() -> UInt {
+func problem_1_2() -> UInt {
     var result: UInt = 0
     let filename = "input-1.txt"
     let contents = try! String(contentsOfFile: filename)
@@ -52,7 +52,59 @@ func problem_2() -> UInt {
     return result
 }
 
+func problem_2_1() -> Int {
+    var hoz: Int = 0
+    var vert: Int = 0
+    
+    let filename = "input-2.txt"
+    let contents = try! String(contentsOfFile: filename)
+    let lines = contents.split(separator:"\n")
+    
+    for line in lines {
+        let split = line.split(separator: " ")
+        let (direction, amount) = (split[0], Int(split[1])!)
+        switch direction {
+        case "forward": hoz += amount
+        case "down": vert -= amount
+        case "up": vert += amount
+        default:
+            fatalError("unrecognized direction")
+        }
+    }
+    return hoz * (-vert)
+}
 
-print("problem 1: \(problem_1())")
-print("problem 2 \(problem_2())")
+func problem_2_2() -> Int {
+    var hoz: Int = 0
+    var depth: Int = 0
+    var aim: Int = 0
+    
+    let filename = "input-2.txt"
+    let contents = try! String(contentsOfFile: filename)
+    let lines = contents.split(separator:"\n")
+    
+    for line in lines {
+        let split = line.split(separator: " ")
+        let (direction, amount) = (split[0], Int(split[1])!)
+        switch direction {
+        case "down":
+            aim += amount
+        case "up":
+            aim -= amount
+        case "forward":
+            hoz += amount
+            depth += aim * amount
+            
+        default:
+            fatalError("unrecognized direction")
+        }
+    }
+    return hoz * depth
+}
+
+
+print("problem 1_1: \(problem_1_1())")
+print("problem 1_2: \(problem_1_2())")
+print("problem 2_1: \(problem_2_1())")
+print("problem 2_2: \(problem_2_2())")
 
