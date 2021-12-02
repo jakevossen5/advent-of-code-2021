@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF84559127592AE100FE6942 /* 1.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF84559027592AE100FE6942 /* 1.swift */; };
 		DFE10C81275739220078C99C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE10C80275739220078C99C /* main.swift */; };
+		DFF82B8327592B6800F2EF7F /* 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF82B8227592B6800F2EF7F /* 2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,10 +25,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DF84559027592AE100FE6942 /* 1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1.swift; sourceTree = "<group>"; };
 		DFC7B1282759207900E43D0A /* input-2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "input-2.txt"; sourceTree = "<group>"; };
 		DFE10C7D275739220078C99C /* Advent of Code 2021 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Advent of Code 2021"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFE10C80275739220078C99C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = "Advent of Code 2021/main.swift"; sourceTree = SOURCE_ROOT; };
 		DFE10C872757395D0078C99C /* input-1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "input-1.txt"; path = "/Users/jakevossen/Dropbox/dev/Advent of Code 2021/input-1.txt"; sourceTree = "<absolute>"; };
+		DFF82B8227592B6800F2EF7F /* 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,8 @@
 			isa = PBXGroup;
 			children = (
 				DFE10C80275739220078C99C /* main.swift */,
+				DFF82B8227592B6800F2EF7F /* 2.swift */,
+				DF84559027592AE100FE6942 /* 1.swift */,
 			);
 			path = "Advent of Code 2021";
 			sourceTree = "<group>";
@@ -124,7 +130,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFF82B8327592B6800F2EF7F /* 2.swift in Sources */,
 				DFE10C81275739220078C99C /* main.swift in Sources */,
+				DF84559127592AE100FE6942 /* 1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
