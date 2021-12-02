@@ -11,7 +11,7 @@ func problem_2_1() -> Int {
     var hoz: Int = 0
     var vert: Int = 0
     
-    let filename = "input-2.txt"
+    let filename = "inputs/input-2.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
     
@@ -34,7 +34,7 @@ func problem_2_2() -> Int {
     var depth: Int = 0
     var aim: Int = 0
     
-    let filename = "input-2.txt"
+    let filename = "inputs/input-2.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
     

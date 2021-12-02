@@ -9,7 +9,7 @@ import Foundation
 
 func problem_1_1() -> UInt {
     var result: UInt = 0
-    let filename = "input-1.txt"
+    let filename = "inputs/input-1.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n").map {UInt($0)!}
     for (i, e) in lines.enumerated().dropFirst(1) {
@@ -23,7 +23,7 @@ func problem_1_1() -> UInt {
 
 func problem_1_2() -> UInt {
     var result: UInt = 0
-    let filename = "input-1.txt"
+    let filename = "inputs/input-1.txt"
     let contents = try! String(contentsOfFile: filename)
     let nums = contents.split(separator:"\n").map {UInt($0)!}
     
