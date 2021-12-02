@@ -21,7 +21,7 @@ func problem_1_1() -> UInt {
         }
     }
     return result
-
+    
 }
 
 func problem_1_2() -> UInt {
@@ -30,15 +30,11 @@ func problem_1_2() -> UInt {
     let contents = try! String(contentsOfFile: filename)
     let nums = contents.split(separator:"\n").map {UInt($0)!}
     
-//    let chunks: []
-    
     var chunks: [[UInt]] = []
     
     for i in 0...(nums.count - 3) {
-        
         let new_arr = [nums[i], nums[i+1], nums[i+2]]
         chunks.append(new_arr)
-        
     }
     
     let sums = chunks.map {$0[0] + $0[1] + $0[2]}
@@ -48,7 +44,6 @@ func problem_1_2() -> UInt {
             result += 1;
         }
     }
-    
     return result
 }
 
@@ -94,7 +89,6 @@ func problem_2_2() -> Int {
         case "forward":
             hoz += amount
             depth += aim * amount
-            
         default:
             fatalError("unrecognized direction")
         }
@@ -107,4 +101,3 @@ print("problem 1_1: \(problem_1_1())")
 print("problem 1_2: \(problem_1_2())")
 print("problem 2_1: \(problem_2_1())")
 print("problem 2_2: \(problem_2_2())")
-
