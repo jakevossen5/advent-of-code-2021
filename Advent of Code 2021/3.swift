@@ -32,17 +32,10 @@ func problem_3_1() -> UInt{
     }
     
     //    print("max bits: \(max_bit_counts)")
-    let epsilon_bits = max_bit_counts.map { $0 == 1 ? UInt8(0) : UInt8(1)}
     let gamma_bits = max_bit_counts
-    
-    
-    let gamma = bit_arr_to_int(gamma_bits)
-    let epsilon = bit_arr_to_int(epsilon_bits)
-    
-    
+    let gamma = bit_arr_to_uint(gamma_bits)
+    let epsilon = ~gamma & 0xfff
     return gamma * epsilon
-    
-    
 }
 
 struct DataLine {
@@ -96,7 +89,7 @@ func problem_3_2() -> UInt {
         }
         
         if data_for_ox.count == 1 {
-            ox = bit_arr_to_int(data_for_ox[0].bits)
+            ox = bit_arr_to_uint(data_for_ox[0].bits)
             break
         }
     }
@@ -117,7 +110,7 @@ func problem_3_2() -> UInt {
         }
         
         if data.count == 1 {
-            co2 = bit_arr_to_int(data[0].bits)
+            co2 = bit_arr_to_uint(data[0].bits)
             break
         }
     }
@@ -150,11 +143,14 @@ func problem_3_init_helper() -> [[UInt8]]{
     return bits
 }
 
-func bit_arr_to_int(_ arr: [UInt8]) -> UInt {
-    let as_string = arr.map {String($0)}.reduce("") {$0 + $1}
+func bit_arr_to_uint(_ arr: [UInt8]) -> UInt {
+    var sum: UInt = 0
     
-    let result = UInt(as_string, radix: 2)!
-    return result
+    for (i, e) in arr.reversed().enumerated() {
+        sum |= UInt(e) << i
+    }
+    
+    return sum
 }
 
 
