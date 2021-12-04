@@ -11,6 +11,7 @@ print("problem 2_1: \(problem_2_1())")
 print("problem 2_2: \(problem_2_2())")
 print("problem 3_1: \(problem_3_1())")
 print("problem 3_2: \(problem_3_2())")
+print("problem 4_1: \(problem_4_1())")
 
 test()
 
