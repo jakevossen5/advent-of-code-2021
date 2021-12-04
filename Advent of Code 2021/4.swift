@@ -8,49 +8,14 @@
 import Foundation
 
 func problem_4_1() -> UInt {
-
     
-    let filename = "inputs/input-4.txt"
-    let contents = try! String(contentsOfFile: filename)
-    let lines = contents.split(separator:"\n")
-    
-    let first_line = lines[0]
-    
-    var boards: [[[UInt]]] = []
-    
-    var offset = 1
-    while offset < lines.count - 4 {
-        var new_board: [[UInt]] = []
-        for i in offset...offset+4 {
-            let cur_line = lines[i]
-            let cur_values = cur_line.split(separator: " ").map {UInt($0)!}
-            guard !cur_values.isEmpty else {
-                fatalError("Couldn't get any values")
-            }
-            print("adding \(cur_values) to current board")
-            new_board.append(cur_values)
-        }
-        offset += 5
-        boards.append(new_board)
-    }
-    
-    // printing boards in a resonable format
-    for board in boards {
-        for board_line in board {
-            print(board_line)
-        }
-        print()
-    }
-    
-    
-    let picks = first_line.split(separator: ",").map {UInt($0)!}
-    print("picks: \(picks)")
+    let (boards, picks) = get_input_4()
     
     for i in 0..<picks.count {
         let current_picks = picks[0...i]
         
         for board in boards {
-            let result = board_checker(board: board, picks: [UInt](current_picks))
+            let result = board_scorer(board: board, picks: [UInt](current_picks))
             if let score = result {
                 print("We have a winner!")
                 print("score \(score)")
@@ -67,8 +32,36 @@ func problem_4_1() -> UInt {
     return 0
 }
 
+func problem_4_2() -> UInt {
+ 
+    var (boards, picks) = get_input_4()
+    
+    
+    for i in 0..<picks.count {
+        let current_picks = picks[0...i]
+        
+        var remaining_boards: [[[UInt]]] = []
 
-func board_checker(board: [[UInt]], picks: [UInt]) -> UInt? {
+        for board in boards {
+            let result = board_scorer(board: board, picks: [UInt](current_picks))
+            if let score = result {
+                if boards.count == 1 {
+                    return score * current_picks.last!
+                }
+            } else {
+                remaining_boards.append(board)
+            }
+        }
+        boards = remaining_boards
+
+    }
+    
+    fatalError("never got down to just one board")
+}
+    
+
+
+func board_scorer(board: [[UInt]], picks: [UInt]) -> UInt? {
     
     let hoz_0 = Set(board[0])
     let hoz_1 = Set(board[1])
@@ -114,4 +107,45 @@ func board_checker(board: [[UInt]], picks: [UInt]) -> UInt? {
         }
     }
     return nil
+}
+
+
+func get_input_4() -> ([[[UInt]]], [UInt]) {
+    let filename = "inputs/input-4.txt"
+    let contents = try! String(contentsOfFile: filename)
+    let lines = contents.split(separator:"\n")
+    
+    let first_line = lines[0]
+    
+    var boards: [[[UInt]]] = []
+    
+    var offset = 1
+    while offset < lines.count - 4 {
+        var new_board: [[UInt]] = []
+        for i in offset...offset+4 {
+            let cur_line = lines[i]
+            let cur_values = cur_line.split(separator: " ").map {UInt($0)!}
+            guard !cur_values.isEmpty else {
+                fatalError("Couldn't get any values")
+            }
+            print("adding \(cur_values) to current board")
+            new_board.append(cur_values)
+        }
+        offset += 5
+        boards.append(new_board)
+    }
+    
+    // printing boards in a resonable format
+    for board in boards {
+        for board_line in board {
+            print(board_line)
+        }
+        print()
+    }
+    
+    
+    let picks = first_line.split(separator: ",").map {UInt($0)!}
+    print("picks: \(picks)")
+    
+    return (boards, picks)
 }
