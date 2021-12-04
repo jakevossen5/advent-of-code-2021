@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias BingoBoard = [[UInt]]
+
 func problem_4_1() -> UInt {
     
     let (boards, picks) = get_input_4()
@@ -17,30 +19,22 @@ func problem_4_1() -> UInt {
         for board in boards {
             let result = board_scorer(board: board, picks: [UInt](current_picks))
             if let score = result {
-                print("We have a winner!")
-                print("score \(score)")
                 let most_recent_pick = current_picks.last!
                 return most_recent_pick * score
-            } else {
-                print("no winner yet")
             }
         }
-        
     }
-
-    
-    return 0
+    fatalError("Failed to find winning board for 4-1")
 }
 
 func problem_4_2() -> UInt {
  
     var (boards, picks) = get_input_4()
     
-    
     for i in 0..<picks.count {
         let current_picks = picks[0...i]
         
-        var remaining_boards: [[[UInt]]] = []
+        var remaining_boards: [BingoBoard] = []
 
         for board in boards {
             let result = board_scorer(board: board, picks: [UInt](current_picks))
@@ -56,12 +50,12 @@ func problem_4_2() -> UInt {
 
     }
     
-    fatalError("never got down to just one board")
+    fatalError("never got down to just one winning board")
 }
     
 
 
-func board_scorer(board: [[UInt]], picks: [UInt]) -> UInt? {
+func board_scorer(board: BingoBoard, picks: [UInt]) -> UInt? {
     
     let hoz_0 = Set(board[0])
     let hoz_1 = Set(board[1])
@@ -99,9 +93,7 @@ func board_scorer(board: [[UInt]], picks: [UInt]) -> UInt? {
     let picks_set = Set(picks)
     
     for e in everything_to_check {
-        print("checking \(e) against \(picks_set)")
         if e.isSubset(of: picks_set) {
-            // have to sum e now to get the score
             let score = board.joined().filter {!picks_set.contains($0)}.reduce(0, {x, y in x + y})
             return score
         }
@@ -110,25 +102,26 @@ func board_scorer(board: [[UInt]], picks: [UInt]) -> UInt? {
 }
 
 
-func get_input_4() -> ([[[UInt]]], [UInt]) {
+
+func get_input_4() -> ([BingoBoard], [UInt]) {
     let filename = "inputs/input-4.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
     
     let first_line = lines[0]
     
-    var boards: [[[UInt]]] = []
+    var boards: [BingoBoard] = []
     
     var offset = 1
     while offset < lines.count - 4 {
-        var new_board: [[UInt]] = []
+        var new_board: BingoBoard = []
         for i in offset...offset+4 {
             let cur_line = lines[i]
             let cur_values = cur_line.split(separator: " ").map {UInt($0)!}
             guard !cur_values.isEmpty else {
                 fatalError("Couldn't get any values")
             }
-            print("adding \(cur_values) to current board")
+//            print("adding \(cur_values) to current board")
             new_board.append(cur_values)
         }
         offset += 5
@@ -136,16 +129,16 @@ func get_input_4() -> ([[[UInt]]], [UInt]) {
     }
     
     // printing boards in a resonable format
-    for board in boards {
-        for board_line in board {
-            print(board_line)
-        }
-        print()
-    }
+//    for board in boards {
+//        for board_line in board {
+//            print(board_line)
+//        }
+//        print()
+//    }
     
     
     let picks = first_line.split(separator: ",").map {UInt($0)!}
-    print("picks: \(picks)")
+//    print("picks: \(picks)")
     
     return (boards, picks)
 }
