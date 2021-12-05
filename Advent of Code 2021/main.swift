@@ -17,7 +17,7 @@ print("problem 5_1: \(problem_5_1())")
 print("problem 5_2: \(problem_5_2())")
 
 
-//test()
+test()
 
 func test() {
     assert(problem_1_1() == 1121)
