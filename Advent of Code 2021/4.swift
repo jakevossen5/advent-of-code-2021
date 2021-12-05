@@ -28,7 +28,7 @@ func problem_4_1() -> UInt {
 }
 
 func problem_4_2() -> UInt {
- 
+
     var (boards, picks) = get_input_4()
     
     for i in 0..<picks.count {
@@ -47,12 +47,12 @@ func problem_4_2() -> UInt {
             }
         }
         boards = remaining_boards
-
+        
     }
     
     fatalError("never got down to just one winning board")
 }
-    
+
 
 
 func board_scorer(board: BingoBoard, picks: [UInt]) -> UInt? {
@@ -68,7 +68,7 @@ func board_scorer(board: BingoBoard, picks: [UInt]) -> UInt? {
     var vert_2: Set<UInt> = Set()
     var vert_3: Set<UInt> = Set()
     var vert_4: Set<UInt> = Set()
-
+    
     for line in board {
         for (i, e) in line.enumerated() {
             switch i {
@@ -121,7 +121,7 @@ func get_input_4() -> ([BingoBoard], [UInt]) {
             guard !cur_values.isEmpty else {
                 fatalError("Couldn't get any values")
             }
-//            print("adding \(cur_values) to current board")
+            //            print("adding \(cur_values) to current board")
             new_board.append(cur_values)
         }
         offset += 5
@@ -129,16 +129,16 @@ func get_input_4() -> ([BingoBoard], [UInt]) {
     }
     
     // printing boards in a resonable format
-//    for board in boards {
-//        for board_line in board {
-//            print(board_line)
-//        }
-//        print()
-//    }
+    //    for board in boards {
+    //        for board_line in board {
+    //            print(board_line)
+    //        }
+    //        print()
+    //    }
     
     
     let picks = first_line.split(separator: ",").map {UInt($0)!}
-//    print("picks: \(picks)")
+    //    print("picks: \(picks)")
     
     return (boards, picks)
 }
