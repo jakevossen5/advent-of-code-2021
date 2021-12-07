@@ -90,7 +90,7 @@ func problem_5(consider_diagonals: Bool) -> Int {
     
     
     let result = board.values.filter({$0 > 1}).count
-    return Int(result)
+    return result
 }
 
 
