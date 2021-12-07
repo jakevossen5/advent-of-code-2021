@@ -9,11 +9,11 @@ import Foundation
 
 
 func problem_7_1() -> Int {
-    problem_7(cost_metric: cost_metric_1(distance:))
+    problem_7(cost_metric: {$0})
 }
 
 func problem_7_2() -> Int {
-    problem_7(cost_metric: cost_metric_2(distance:))
+    problem_7(cost_metric: {d in (d * (d + 1)) / 2})
 }
 
 func problem_7(cost_metric: (Int) -> Int) -> Int {
@@ -30,21 +30,12 @@ func problem_7(cost_metric: (Int) -> Int) -> Int {
     for candidate in 0...max {
         var candidate_result = 0
         for crab in crabs {
-            let distnace = abs(crab - candidate)
-            candidate_result += cost_metric(distnace)
+            let distance = abs(crab - candidate)
+            candidate_result += cost_metric(distance)
         }
         if candidate_result < result {
             result = candidate_result
         }
     }
-    
     return result
-}
-
-func cost_metric_2(distance: Int) -> Int {
-    return (distance * (distance + 1) / 2)
-}
-
-func cost_metric_1(distance: Int) -> Int {
-    return distance
 }
