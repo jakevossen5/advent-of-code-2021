@@ -17,6 +17,9 @@ print("problem 5_1: \(problem_5_1())")
 print("problem 5_2: \(problem_5_2())")
 print("problem 6_1: \(problem_6_1())")
 print("problem 6_2: \(problem_6_2())")
+print("problem 7_1: \(problem_7_1())")
+print("problem 7_2: \(problem_7_2())")
+
 
 test()
 
@@ -33,4 +36,6 @@ func test() {
     assert(problem_5_2() == 19374)
     assert(problem_6_1() == 351092)
     assert(problem_6_2() == 1595330616005)
+    assert(problem_7_1() == 344605)
+    assert(problem_7_2() == 93699985)
 }
