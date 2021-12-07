@@ -7,9 +7,9 @@
 
 import Foundation
 
-typealias BingoBoard = [[UInt]]
+typealias BingoBoard = [[Int]]
 
-func problem_4_1() -> UInt {
+func problem_4_1() -> Int {
     
     let (boards, picks) = get_input_4()
     
@@ -17,7 +17,7 @@ func problem_4_1() -> UInt {
         let current_picks = picks[0...i]
         
         for board in boards {
-            let result = board_scorer(board: board, picks: [UInt](current_picks))
+            let result = board_scorer(board: board, picks: [Int](current_picks))
             if let score = result {
                 let most_recent_pick = current_picks.last!
                 return most_recent_pick * score
@@ -27,7 +27,7 @@ func problem_4_1() -> UInt {
     fatalError("Failed to find winning board for 4-1")
 }
 
-func problem_4_2() -> UInt {
+func problem_4_2() -> Int {
 
     var (boards, picks) = get_input_4()
     
@@ -37,7 +37,7 @@ func problem_4_2() -> UInt {
         var remaining_boards: [BingoBoard] = []
 
         for board in boards {
-            let result = board_scorer(board: board, picks: [UInt](current_picks))
+            let result = board_scorer(board: board, picks: [Int](current_picks))
             if let score = result {
                 if boards.count == 1 {
                     return score * current_picks.last!
@@ -55,7 +55,7 @@ func problem_4_2() -> UInt {
 
 
 
-func board_scorer(board: BingoBoard, picks: [UInt]) -> UInt? {
+func board_scorer(board: BingoBoard, picks: [Int]) -> Int? {
     
     let hoz_0 = Set(board[0])
     let hoz_1 = Set(board[1])
@@ -63,11 +63,11 @@ func board_scorer(board: BingoBoard, picks: [UInt]) -> UInt? {
     let hoz_3 = Set(board[3])
     let hoz_4 = Set(board[4])
     
-    var vert_0: Set<UInt> = Set()
-    var vert_1: Set<UInt> = Set()
-    var vert_2: Set<UInt> = Set()
-    var vert_3: Set<UInt> = Set()
-    var vert_4: Set<UInt> = Set()
+    var vert_0: Set<Int> = Set()
+    var vert_1: Set<Int> = Set()
+    var vert_2: Set<Int> = Set()
+    var vert_3: Set<Int> = Set()
+    var vert_4: Set<Int> = Set()
     
     for line in board {
         for (i, e) in line.enumerated() {
@@ -103,7 +103,7 @@ func board_scorer(board: BingoBoard, picks: [UInt]) -> UInt? {
 
 
 
-func get_input_4() -> ([BingoBoard], [UInt]) {
+func get_input_4() -> ([BingoBoard], [Int]) {
     let filename = "inputs/input-4.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
@@ -117,7 +117,7 @@ func get_input_4() -> ([BingoBoard], [UInt]) {
         var new_board: BingoBoard = []
         for i in offset...offset+4 {
             let cur_line = lines[i]
-            let cur_values = cur_line.split(separator: " ").map {UInt($0)!}
+            let cur_values = cur_line.split(separator: " ").map {Int($0)!}
             guard !cur_values.isEmpty else {
                 fatalError("Couldn't get any values")
             }
@@ -137,7 +137,7 @@ func get_input_4() -> ([BingoBoard], [UInt]) {
     //    }
     
     
-    let picks = first_line.split(separator: ",").map {UInt($0)!}
+    let picks = first_line.split(separator: ",").map {Int($0)!}
     //    print("picks: \(picks)")
     
     return (boards, picks)

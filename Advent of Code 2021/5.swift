@@ -9,8 +9,8 @@ import Foundation
 
 
 struct Point {
-    var x: UInt = 0
-    var y: UInt = 0
+    var x: Int = 0
+    var y: Int = 0
 }
 
 extension Point: Hashable {
@@ -26,7 +26,7 @@ extension Point: Hashable {
 
 
 
-func problem_5(consider_diagonals: Bool) -> UInt {
+func problem_5(consider_diagonals: Bool) -> Int {
     let filename = "inputs/input-5.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
@@ -37,7 +37,7 @@ func problem_5(consider_diagonals: Bool) -> UInt {
         let nums_in_line = line.filter { $0.isNumber || $0 == "," || $0 == "-"}
             .replacingOccurrences(of: "-", with: ",")
             .split(separator: ",")
-            .map({UInt($0)!})
+            .map({Int($0)!})
         
         let from: Point = Point(x: nums_in_line[0], y: nums_in_line[1])
         let to: Point = Point(x: nums_in_line[2], y: nums_in_line[3])
@@ -53,7 +53,7 @@ func problem_5(consider_diagonals: Bool) -> UInt {
         
     }
     
-    var board: [Point: UInt] = [:]
+    var board: [Point: Int] = [:]
     
     for (from, to) in vents {
         
@@ -90,15 +90,15 @@ func problem_5(consider_diagonals: Bool) -> UInt {
     
     
     let result = board.values.filter({$0 > 1}).count
-    return UInt(result)
+    return Int(result)
 }
 
 
 
-func problem_5_1() -> UInt {
+func problem_5_1() -> Int {
     return problem_5(consider_diagonals: false)
 }
 
-func problem_5_2() -> UInt {
+func problem_5_2() -> Int {
     return problem_5(consider_diagonals: true)
 }

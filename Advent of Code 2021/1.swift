@@ -7,11 +7,11 @@
 
 import Foundation
 
-func problem_1_1() -> UInt {
-    var result: UInt = 0
+func problem_1_1() -> Int {
+    var result: Int = 0
     let filename = "inputs/input-1.txt"
     let contents = try! String(contentsOfFile: filename)
-    let lines = contents.split(separator:"\n").map {UInt($0)!}
+    let lines = contents.split(separator:"\n").map {Int($0)!}
     for (i, e) in lines.enumerated().dropFirst(1) {
         if e > lines[i - 1] {
             result += 1;
@@ -21,13 +21,13 @@ func problem_1_1() -> UInt {
     
 }
 
-func problem_1_2() -> UInt {
-    var result: UInt = 0
+func problem_1_2() -> Int {
+    var result: Int = 0
     let filename = "inputs/input-1.txt"
     let contents = try! String(contentsOfFile: filename)
-    let nums = contents.split(separator:"\n").map {UInt($0)!}
+    let nums = contents.split(separator:"\n").map {Int($0)!}
     
-    var chunks: [[UInt]] = []
+    var chunks: [[Int]] = []
     
     for i in 0...(nums.count - 3) {
         let new_arr = [nums[i], nums[i+1], nums[i+2]]

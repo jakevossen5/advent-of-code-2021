@@ -8,7 +8,7 @@
 import Foundation
 
 
-func problem_3_1() -> UInt{
+func problem_3_1() -> Int{
     
     let bits = problem_3_init_helper()
     let data = bits.map {DataLine(bits: $0)}
@@ -46,10 +46,10 @@ struct DataLine {
     }
 }
 
-func problem_3_2() -> UInt {
+func problem_3_2() -> Int {
 
     
-    func get_new_data_arr(for_arr arr: [DataLine], at ix: Int, keep: UInt) -> [DataLine] {
+    func get_new_data_arr(for_arr arr: [DataLine], at ix: Int, keep: Int) -> [DataLine] {
         var new_data: [DataLine] = []
         for data in arr {
             if (data.bit(at: ix) == keep) {
@@ -69,8 +69,8 @@ func problem_3_2() -> UInt {
     let len_of_bit_arr = bits[0].count
     
     var data_for_ox = data
-    var ox: UInt?
-    var co2: UInt?
+    var ox: Int?
+    var co2: Int?
     
     
     for col_ix in 0...len_of_bit_arr - 1 { // TODO probably shouldn't harcode 11 here but ¯\_(ツ)_/¯
@@ -143,11 +143,11 @@ func problem_3_init_helper() -> [[UInt8]]{
     return bits
 }
 
-func bit_arr_to_uint(_ arr: [UInt8]) -> UInt {
-    var sum: UInt = 0
+func bit_arr_to_uint(_ arr: [UInt8]) -> Int {
+    var sum: Int = 0
     
     for (i, e) in arr.reversed().enumerated() {
-        sum |= UInt(e) << i
+        sum |= Int(e) << i
     }
     
     return sum
