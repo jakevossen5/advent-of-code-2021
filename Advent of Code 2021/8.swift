@@ -22,6 +22,19 @@ func problem_8_1() -> Int {
     return result
 }
 
+fileprivate func remove_already_determined_chars_from_other_sets(_ set_list: inout [Set<Character>]) {
+    for s in set_list {
+        if s.count == 1 {
+            let char_to_remove = s.first!
+            
+            // go through the other sets that have more than one element, and contain the char we are trying to remove
+            for index_to_update in set_list.enumerated().filter({$1.count > 1 && $1.contains(char_to_remove)}).map({$0.0}) {
+                set_list[index_to_update].remove(char_to_remove)
+            }
+        }
+    }
+}
+
 func problem_8_2() -> Int {
     let filename = "inputs/input-8.txt"
     let contents = try! String(contentsOfFile: filename)
@@ -97,16 +110,8 @@ func problem_8_2() -> Int {
             // probably a better way to do this, but we will through everything into a list, modify the list elements, then read them out of the list at the end
             var set_list = [possible_top_top, possible_top_right, possible_bottom_right, possible_bottom_bottom, possible_bottom_left, possible_top_left, possible_middle]
             
-            for s in set_list {
-                if s.count == 1 {
-                    let char_to_remove = s.first!
-                    
-                    // go through the other sets that have more than one element, and contain the char we are trying to remove
-                    for index_to_update in set_list.enumerated().filter({$1.count > 1 && $1.contains(char_to_remove)}).map({$0.0}) {
-                        set_list[index_to_update].remove(char_to_remove)
-                    }
-                }
-            }
+            remove_already_determined_chars_from_other_sets(&set_list)
+            
             possible_top_top = set_list[0]
             possible_top_right = set_list[1]
             possible_bottom_right = set_list[2]
