@@ -21,6 +21,9 @@ func main() {
     let p_6_2 = problem_6_2()
     let p_7_1 = problem_7_1()
     let p_7_2 = problem_7_2()
+    let p_8_1 = problem_8_1()
+    let p_8_2 = problem_8_2()
+
     
     
     print("problem 1_1: \(p_1_1)")
@@ -37,6 +40,9 @@ func main() {
     print("problem 6_2: \(p_6_2)")
     print("problem 7_1: \(p_7_1)")
     print("problem 7_2: \(p_7_2)")
+    print("problem 8_1: \(p_8_1)")
+    print("problem 8_2: \(p_8_2)")
+
     
     assert(p_1_1 == 1121)
     assert(p_1_2 == 1065)
@@ -52,6 +58,8 @@ func main() {
     assert(p_6_2 == 1595330616005)
     assert(p_7_1 == 344605)
     assert(p_7_2 == 93699985)
+    assert(p_8_1 == 440)
+    assert(p_8_2 == 1046281)
     
 
 }
