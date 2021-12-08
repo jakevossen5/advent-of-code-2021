@@ -4,30 +4,10 @@
 //  Advent of Code 2021
 //
 //  Created by Jake Vossen on 12/7/21.
-//0:      1:      2:      3:      4:
-//aaaa    ....    aaaa    aaaa    ....
-//b    c  .    c  .    c  .    c  b    c
-//b    c  .    c  .    c  .    c  b    c
-//....    ....    dddd    dddd    dddd
-//e    f  .    f  e    .  .    f  .    f
-//e    f  .    f  e    .  .    f  .    f
-//gggg    ....    gggg    gggg    ....
-//
-// 5:      6:      7:      8:      9:
-//aaaa    aaaa    aaaa    aaaa    aaaa
-//b    .  b    .  .    c  b    c  b    c
-//b    .  b    .  .    c  b    c  b    c
-//dddd    dddd    ....    dddd    dddd
-//.    f  e    f  .    f  e    f  .    f
-//.    f  e    f  .    f  e    f  .    f
-//gggg    gggg    ....    gggg    gggg
-
-
 
 import Foundation
 
 func problem_8_1() -> Int {
-    var result = 0
     let filename = "inputs/input-8.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
@@ -37,11 +17,7 @@ func problem_8_1() -> Int {
         let codes = outputs.split(separator: " ").map({String($0)})
         output_values.append(contentsOf: codes)
     }
-    
-    print(output_values)
-    
-    result = output_values.filter({ $0.count == 4 || $0.count == 2 || $0.count == 3 || $0.count == 7}).count
-    
+    let result = output_values.filter({ $0.count == 4 || $0.count == 2 || $0.count == 3 || $0.count == 7}).count
     
     return result
 }
@@ -72,58 +48,62 @@ func problem_8_2() -> Int {
         var possible_top_left: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"])
         var possible_middle: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"])
         
-        for output_code in signal_patterns {
-            let unique_chars = Set(output_code)
-            if output_code.count == 2 { // 1
+        for pattern in signal_patterns {
+            let unique_chars = Set(pattern)
+            if pattern.count == 2 { // 1
                 possible_top_right.formIntersection(unique_chars)
                 possible_bottom_right.formIntersection(unique_chars)
+                
                 possible_top_top = possible_top_top.filter({!unique_chars.contains($0)})
                 possible_bottom_bottom = possible_bottom_bottom.filter({!unique_chars.contains($0)})
                 possible_bottom_left = possible_bottom_left.filter({!unique_chars.contains($0)})
                 possible_top_left = possible_top_left.filter({!unique_chars.contains($0)})
                 possible_middle = possible_middle.filter({!unique_chars.contains($0)})
-            } else if output_code.count == 3 { // 7
+            } else if pattern.count == 3 { // 7
                 possible_top_top.formIntersection(unique_chars)
                 possible_top_right.formIntersection(unique_chars)
                 possible_bottom_right.formIntersection(unique_chars)
+                
                 possible_bottom_bottom = possible_bottom_bottom.filter({!unique_chars.contains($0)})
                 possible_bottom_left = possible_bottom_left.filter({!unique_chars.contains($0)})
                 possible_middle = possible_middle.filter({!unique_chars.contains($0)})
                 possible_top_left = possible_top_left.filter({!unique_chars.contains($0)})
-            } else if output_code.count == 4 { // 4
+            } else if pattern.count == 4 { // 4
                 possible_top_right.formIntersection(unique_chars)
                 possible_bottom_right.formIntersection(unique_chars)
                 possible_middle.formIntersection(unique_chars)
                 possible_top_left.formIntersection(unique_chars)
+                
                 possible_top_top = possible_top_top.filter({!unique_chars.contains($0)})
                 possible_bottom_bottom = possible_bottom_bottom.filter({!unique_chars.contains($0)})
                 possible_bottom_left = possible_bottom_left.filter({!unique_chars.contains($0)})
-            } else if output_code.count == 5 { // either a 2, 3 or a 5
-                // Guess we start by filtering out things that has to be?
+            } else if pattern.count == 5 { // either a 2, 3 or a 5
+                // we don't know what it for certain is, but the top, middle, bottom are all lit up for this.
                 possible_top_top = possible_top_top.filter({unique_chars.contains($0)})
                 possible_bottom_bottom = possible_bottom_bottom.filter({unique_chars.contains($0)})
                 possible_middle = possible_middle.filter({unique_chars.contains($0)})
-            } else if output_code.count == 6 { // either a 0, 6, or a 9
+            } else if pattern.count == 6 { // either a 0, 6, or a 9
                 possible_top_top = possible_top_top.filter({unique_chars.contains($0)})
                 possible_bottom_bottom = possible_bottom_bottom.filter({unique_chars.contains($0)})
                 possible_top_left = possible_top_left.filter({unique_chars.contains($0)})
                 possible_bottom_right = possible_bottom_right.filter({unique_chars.contains($0)})
                 
             }
-            else if output_code.count == 7 {
-                // nothing to do here?
-            }
-            print("iterate")
             
+            
+            
+            // If we only have one char left, then we can remove it from the other lists
+            
+            // probably a better way to do this, but we will through everything into a list, modify the list elements, then read them out of the list at the end
             var set_list = [possible_top_top, possible_top_right, possible_bottom_right, possible_bottom_bottom, possible_bottom_left, possible_top_left, possible_middle]
             
             for s in set_list {
                 if s.count == 1 {
                     let char_to_remove = s.first!
-                    for (i, s2) in set_list.enumerated() {
-                        if s2.count != 1 {
-                            set_list[i].remove(char_to_remove)
-                        }
+                    
+                    // go through the other sets that have more than one element, and contain the char we are trying to remove
+                    for index_to_update in set_list.enumerated().filter({$1.count > 1 && $1.contains(char_to_remove)}).map({$0.0}) {
+                        set_list[index_to_update].remove(char_to_remove)
                     }
                 }
             }
@@ -134,9 +114,13 @@ func problem_8_2() -> Int {
             possible_bottom_left = set_list[4]
             possible_top_left = set_list[5]
             possible_middle = set_list[6]
-            print("iterate")
-            
         }
+        
+        // We have figured out what each segment's charachter is! Now time to decode
+        
+        // sanity check that all of these only have one element
+        let set_list = [possible_top_top, possible_top_right, possible_bottom_right, possible_bottom_bottom, possible_bottom_left, possible_top_left, possible_middle]
+        assert(set_list.map({$0.count}).allSatisfy({$0 == 1}))
         
         let top_top = possible_top_top.first!
         let top_right = possible_top_right.first!
@@ -159,29 +143,20 @@ func problem_8_2() -> Int {
         
         let digits = [zero, one, two, three, four, five, six, seven, eight, nine]
         
-        var result = ""
+        var result = 0
         
-        for (n, output_code) in output_codes.map({Set($0)}).enumerated() {
-            for (num, lights) in digits {
-                if output_code == lights {
-                    result += String(num)
+        for output_code in output_codes.map({Set($0)}) {
+            for (num, lights_for_num) in digits {
+                if output_code == lights_for_num {
+                    result += num
+                    result *= 10
                 }
             }
         }
-        
-        // cefdb: middle, bottom, bottom_right, top, top_right
-        
-
-        
-        results.append(Int(result)!)
-        
-        print("done with check")
+        result /= 10
+        results.append(result)
         
     }
-    
-    
-    
-    print(results)
     
     return results.reduce(0, {x, y in x + y})
 }
