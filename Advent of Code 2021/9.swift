@@ -12,7 +12,7 @@ func problem_9_1() -> Int {
     
     let board = get_board()
     var score_sum = 0
-    let low_ixs: [Point] = get_low_points(board: board)
+    let low_ixs = get_low_points(board: board)
     
     for point in low_ixs {
         let row = point.x
@@ -84,12 +84,14 @@ func problem_9_2() -> Int {
         
         var part_of_basin: Set<Point> = Set()
         part_of_basin.insert(point)
+        
         var to_check: Set<Point> = []
         to_check.insert(point)
         
         while !to_check.isEmpty {
             let cur_point = to_check.popFirst()!
             part_of_basin.insert(cur_point)
+            
             let row = cur_point.x
             let col = cur_point.y
             

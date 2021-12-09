@@ -56,8 +56,7 @@ func problem_5(consider_diagonals: Bool) -> Int {
     var board: [Point: Int] = [:]
     
     for (from, to) in vents {
-        
-        
+
         var cur_x = from.x
         var cur_y = from.y
         
