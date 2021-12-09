@@ -21,8 +21,6 @@ func problem_9_1() -> Int {
         score_sum += 1 + board[row][col]
     }
     
-
-    
     return score_sum
     
 }
@@ -83,7 +81,7 @@ func problem_9_2() -> Int {
     
     
     for point in low_ixs {
-
+        
         var part_of_basin: Set<Point> = Set()
         part_of_basin.insert(point)
         var to_check: Set<Point> = []
@@ -91,6 +89,7 @@ func problem_9_2() -> Int {
         
         while !to_check.isEmpty {
             let cur_point = to_check.popFirst()!
+            part_of_basin.insert(cur_point)
             let row = cur_point.x
             let col = cur_point.y
             
@@ -105,32 +104,27 @@ func problem_9_2() -> Int {
                 let maybe_point = Point(x: row + 1, y: col)
                 if !part_of_basin.contains(maybe_point) {
                     to_check.insert(maybe_point)
-                    part_of_basin.insert(maybe_point)
                 }
             }
             if col - 1 >= 0 && board[row][col - 1] < 9 {
                 let maybe_point = Point(x: row, y: col - 1)
                 if !part_of_basin.contains(maybe_point) {
                     to_check.insert(maybe_point)
-                    part_of_basin.insert(maybe_point)
                 }
             }
             if col + 1 < cols && board[row][col + 1] < 9 {
                 let maybe_point = Point(x: row, y: col + 1)
                 if !part_of_basin.contains(maybe_point) {
                     to_check.insert(maybe_point)
-                    part_of_basin.insert(maybe_point)
                 }
             }
         }
         
-//        print(part_of_basin)
         all_basins.append(part_of_basin)
         
     }
     
-    let results = [Int](all_basins.map({$0.count}).sorted().reversed())
-    let top_three = results[0] * results[1] * results[2]
+    let result = all_basins.map({$0.count}).sorted().reversed().prefix(3).reduce(1, {x, y in x * y})
     
-    return top_three
+    return result
 }
