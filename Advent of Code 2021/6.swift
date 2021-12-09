@@ -8,7 +8,7 @@
 import Foundation
 
 
-func problem_6(count_to: Int) -> Int {
+fileprivate func problem_6(count_to: Int) -> Int {
     
     // could do [day: count] but day can be index
     var fish_counts: [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0]

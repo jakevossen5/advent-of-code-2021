@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias BingoBoard = [[Int]]
+fileprivate typealias BingoBoard = [[Int]]
 
 func problem_4_1() -> Int {
     
@@ -55,7 +55,7 @@ func problem_4_2() -> Int {
 
 
 
-func board_scorer(board: BingoBoard, picks: [Int]) -> Int? {
+fileprivate func board_scorer(board: BingoBoard, picks: [Int]) -> Int? {
     
     let hoz_0 = Set(board[0])
     let hoz_1 = Set(board[1])
@@ -103,7 +103,7 @@ func board_scorer(board: BingoBoard, picks: [Int]) -> Int? {
 
 
 
-func get_input_4() -> ([BingoBoard], [Int]) {
+fileprivate func get_input_4() -> ([BingoBoard], [Int]) {
     let filename = "inputs/input-4.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")

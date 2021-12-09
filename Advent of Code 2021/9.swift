@@ -7,6 +7,24 @@
 
 import Foundation
 
+fileprivate typealias Board = [[Int]]
+
+// We have used points in other places, but we are going to recreate this using row and col instead of x and y
+fileprivate struct Point {
+    var row: Int = 0
+    var col: Int = 0
+}
+
+extension Point: Hashable {
+    static func == (lhs: Point, rhs: Point) -> Bool {
+        return lhs.row == rhs.row && lhs.col == rhs.col
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(row)
+        hasher.combine(col)
+    }
+}
 
 func problem_9_1() -> Int {
     
@@ -15,8 +33,8 @@ func problem_9_1() -> Int {
     let low_ixs = get_low_points(board: board)
     
     for point in low_ixs {
-        let row = point.x
-        let col = point.y
+        let row = point.row
+        let col = point.col
         
         score_sum += 1 + board[row][col]
     }
@@ -25,7 +43,7 @@ func problem_9_1() -> Int {
     
 }
 
-fileprivate func get_low_points(board: [[Int]]) -> [Point] {
+fileprivate func get_low_points(board: Board) -> [Point] {
     let cols = board[0].count
     let rows = board.count
     
@@ -41,7 +59,7 @@ fileprivate func get_low_points(board: [[Int]]) -> [Point] {
             let right = col + 1 >= cols ? Int.max : board[row][col + 1]
             
             if (at < above && at < below && at < left && at < right) {
-                low_ixs.append(Point(x: row, y: col))
+                low_ixs.append(Point(row: row, col: col))
             }
             
         }
@@ -50,12 +68,12 @@ fileprivate func get_low_points(board: [[Int]]) -> [Point] {
     return low_ixs
 }
 
-fileprivate func get_board() -> [[Int]] {
+fileprivate func get_board() -> Board {
     let filename = "inputs/input-9.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
     
-    var board: [[Int]] = []
+    var board: Board = []
     for line in lines {
         var board_line: [Int] = []
         for c in line {
@@ -82,40 +100,37 @@ func problem_9_2() -> Int {
     
     for point in low_ixs {
         
-        var part_of_basin: Set<Point> = Set()
-        part_of_basin.insert(point)
-        
-        var to_check: Set<Point> = []
-        to_check.insert(point)
+        var part_of_basin: Set<Point> = Set([point])
+        var to_check: Set<Point> = Set([point])
         
         while !to_check.isEmpty {
             let cur_point = to_check.popFirst()!
             part_of_basin.insert(cur_point)
             
-            let row = cur_point.x
-            let col = cur_point.y
+            let row = cur_point.row
+            let col = cur_point.col
             
             if row - 1 >= 0 && board[row - 1][col] < 9 {
-                let maybe_point = Point(x: row - 1, y: col)
+                let maybe_point = Point(row: row - 1, col: col)
                 if !part_of_basin.contains(maybe_point) {
                     to_check.insert(maybe_point)
                     part_of_basin.insert(maybe_point)
                 }
             }
             if row + 1 < rows && board[row + 1][col] < 9 {
-                let maybe_point = Point(x: row + 1, y: col)
+                let maybe_point = Point(row: row + 1, col: col)
                 if !part_of_basin.contains(maybe_point) {
                     to_check.insert(maybe_point)
                 }
             }
             if col - 1 >= 0 && board[row][col - 1] < 9 {
-                let maybe_point = Point(x: row, y: col - 1)
+                let maybe_point = Point(row: row, col: col - 1)
                 if !part_of_basin.contains(maybe_point) {
                     to_check.insert(maybe_point)
                 }
             }
             if col + 1 < cols && board[row][col + 1] < 9 {
-                let maybe_point = Point(x: row, y: col + 1)
+                let maybe_point = Point(row: row, col: col + 1)
                 if !part_of_basin.contains(maybe_point) {
                     to_check.insert(maybe_point)
                 }

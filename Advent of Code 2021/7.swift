@@ -16,7 +16,7 @@ func problem_7_2() -> Int {
     problem_7(cost_metric: {d in (d * (d + 1)) / 2})
 }
 
-func problem_7(cost_metric: (Int) -> Int) -> Int {
+fileprivate func problem_7(cost_metric: (Int) -> Int) -> Int {
     let filename = "inputs/input-7.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")

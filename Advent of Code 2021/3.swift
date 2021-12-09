@@ -33,7 +33,7 @@ func problem_3_1() -> Int{
     
     //    print("max bits: \(max_bit_counts)")
     let gamma_bits = max_bit_counts
-    let gamma = bit_arr_to_uint(gamma_bits)
+    let gamma = bit_arr_to_int(gamma_bits)
     let epsilon = ~gamma & 0xfff
     return gamma * epsilon
 }
@@ -89,7 +89,7 @@ func problem_3_2() -> Int {
         }
         
         if data_for_ox.count == 1 {
-            ox = bit_arr_to_uint(data_for_ox[0].bits)
+            ox = bit_arr_to_int(data_for_ox[0].bits)
             break
         }
     }
@@ -110,7 +110,7 @@ func problem_3_2() -> Int {
         }
         
         if data.count == 1 {
-            co2 = bit_arr_to_uint(data[0].bits)
+            co2 = bit_arr_to_int(data[0].bits)
             break
         }
     }
@@ -122,7 +122,7 @@ func problem_3_2() -> Int {
 
 
 
-func problem_3_init_helper() -> [[UInt8]]{
+fileprivate func problem_3_init_helper() -> [[UInt8]]{
     let filename = "inputs/input-3.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
@@ -143,7 +143,7 @@ func problem_3_init_helper() -> [[UInt8]]{
     return bits
 }
 
-func bit_arr_to_uint(_ arr: [UInt8]) -> Int {
+fileprivate func bit_arr_to_int(_ arr: [UInt8]) -> Int {
     var sum: Int = 0
     
     for (i, e) in arr.reversed().enumerated() {

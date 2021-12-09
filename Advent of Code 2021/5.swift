@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Point {
+fileprivate struct Point {
     var x: Int = 0
     var y: Int = 0
 }
@@ -26,7 +26,7 @@ extension Point: Hashable {
 
 
 
-func problem_5(consider_diagonals: Bool) -> Int {
+fileprivate func problem_5(consider_diagonals: Bool) -> Int {
     let filename = "inputs/input-5.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
