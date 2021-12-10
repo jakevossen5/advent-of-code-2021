@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DF1F3E582761CCE0006C3FD1 /* 9.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E572761CCE0006C3FD1 /* 9.swift */; };
+		DF246CC727631660004D6880 /* 10.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF246CC627631660004D6880 /* 10.swift */; };
 		DF5FE328275D2DB700372A24 /* 5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FE327275D2DB700372A24 /* 5.swift */; };
 		DF63322E275DCBCD0003F10D /* 6.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63322D275DCBCD0003F10D /* 6.swift */; };
 		DF84559127592AE100FE6942 /* 1.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF84559027592AE100FE6942 /* 1.swift */; };
@@ -35,10 +36,13 @@
 		DF1F3E552761CCC4006C3FD1 /* input-9.tst.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "input-9.tst.txt"; sourceTree = "<group>"; };
 		DF1F3E562761CCD3006C3FD1 /* input-9.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "input-9.txt"; sourceTree = "<group>"; };
 		DF1F3E572761CCE0006C3FD1 /* 9.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 9.swift; sourceTree = "<group>"; };
+		DF246CC627631660004D6880 /* 10.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 10.swift; sourceTree = "<group>"; };
+		DF246CC827631707004D6880 /* input-10.tst.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "input-10.tst.txt"; sourceTree = "<group>"; };
 		DF5FE326275D2DA000372A24 /* input-5.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "input-5.txt"; sourceTree = "<group>"; };
 		DF5FE327275D2DB700372A24 /* 5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 5.swift; sourceTree = "<group>"; };
 		DF5FE329275D35D700372A24 /* input-5.tst.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "input-5.tst.txt"; sourceTree = "<group>"; };
 		DF63322D275DCBCD0003F10D /* 6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 6.swift; sourceTree = "<group>"; };
+		DF6B1D2527631E700001DF76 /* input-10.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "input-10.txt"; sourceTree = "<group>"; };
 		DF84559027592AE100FE6942 /* 1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1.swift; sourceTree = "<group>"; };
 		DF951C82275BE0F800CB4073 /* input-4.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "input-4.txt"; sourceTree = "<group>"; };
 		DF951C83275BE10A00CB4073 /* 4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 4.swift; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 				DFDE1CFB275F1D9B008E9A6C /* 7.swift */,
 				DFF472E02760719100D03142 /* 8.swift */,
 				DF1F3E572761CCE0006C3FD1 /* 9.swift */,
+				DF246CC627631660004D6880 /* 10.swift */,
 			);
 			path = "Advent of Code 2021";
 			sourceTree = "<group>";
@@ -121,6 +126,8 @@
 				DFF472E32760767E00D03142 /* input-8.tst.txt */,
 				DF1F3E552761CCC4006C3FD1 /* input-9.tst.txt */,
 				DF1F3E562761CCD3006C3FD1 /* input-9.txt */,
+				DF246CC827631707004D6880 /* input-10.tst.txt */,
+				DF6B1D2527631E700001DF76 /* input-10.txt */,
 			);
 			path = inputs;
 			sourceTree = "<group>";
@@ -183,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF246CC727631660004D6880 /* 10.swift in Sources */,
 				DFF82B8327592B6800F2EF7F /* 2.swift in Sources */,
 				DFDE1CFC275F1D9B008E9A6C /* 7.swift in Sources */,
 				DF63322E275DCBCD0003F10D /* 6.swift in Sources */,
