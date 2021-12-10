@@ -9,16 +9,16 @@ import Foundation
 
 
 // Returns the char count of each bracket (for part 1), then the remainder of the stack if we reach the end (for part 2)
-fileprivate func problem_10_helper() -> ([Character: Int], [[Character]]) {
+fileprivate func problem10Helper() -> ([Character: Int], [[Character]]) {
     
     let filename = "inputs/input-10.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n").map({Array($0)})
     
-    var char_counts: [Character: Int] = [")": 0, "]": 0, "}": 0, ">": 0]
+    var charCounts: [Character: Int] = [")": 0, "]": 0, "}": 0, ">": 0]
     
     
-    var remaining_items: [[Character]] = []
+    var remainingItems: [[Character]] = []
 
     
 lineLoop: for line in lines {
@@ -27,8 +27,8 @@ lineLoop: for line in lines {
         if stack.isEmpty {
             stack.append(char)
         } else {
-            let most_recent = stack.last!
-            switch (most_recent, char) {
+            let mostRecentChar = stack.last!
+            switch (mostRecentChar, char) {
             case ("(", ")"):
                 stack.removeLast()
             case ("[", "]"):
@@ -40,28 +40,28 @@ lineLoop: for line in lines {
             case (_, "("), (_, "["), (_, "<"), (_, "{"):
                 stack.append(char)
             default:
-                char_counts[char]! += 1
+                charCounts[char]! += 1
                 continue lineLoop
             }
             
         }
     }
-    remaining_items.append(stack)
+    remainingItems.append(stack)
 }
     
-    return (char_counts, remaining_items)
+    return (charCounts, remainingItems)
     
 }
 
 
 func problem_10_1() -> Int {
     var result = 0
-    let score_data: [(Character, Int)] = [(")", 3), ("]", 57), ("}", 1197), (">", 25137)]
+    let scoreData: [(Character, Int)] = [(")", 3), ("]", 57), ("}", 1197), (">", 25137)]
     
-    let (char_counts, _) = problem_10_helper()
+    let (charCounts, _) = problem10Helper()
     
-    for (char, mult) in score_data {
-        result += char_counts[char]! * mult
+    for (char, mult) in scoreData {
+        result += charCounts[char]! * mult
     }
     return result
     
@@ -70,19 +70,19 @@ func problem_10_1() -> Int {
 
 func problem_10_2() -> Int {
     
-    let score_char: [Character: Int] = ["(": 1, "[": 2, "{": 3, "<": 4]
-    let (_, remaining_items) = problem_10_helper()
+    let scoreCharMap: [Character: Int] = ["(": 1, "[": 2, "{": 3, "<": 4]
+    let (_, remainingItems) = problem10Helper()
     
     var scores: [Int] = []
-    for remaining_item in remaining_items {
-        var cur_score = 0
+    for remainingItem in remainingItems {
+        var curScore = 0
 
-        for item in remaining_item.reversed() {
-            let new_score = score_char[item]!
-            cur_score *= 5
-            cur_score += new_score
+        for item in remainingItem.reversed() {
+            let newScore = scoreCharMap[item]!
+            curScore *= 5
+            curScore += newScore
         }
-        scores.append(cur_score)
+        scores.append(curScore)
     }
     
     scores = scores.sorted()

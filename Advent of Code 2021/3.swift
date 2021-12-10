@@ -8,23 +8,23 @@
 import Foundation
 
 
-func problem_3_1() -> Int{
+func problem_3_1() -> Int {
     
-    let bits = problem_3_init_helper()
+    let bits = getProblem3Input()
     let data = bits.map {DataLine(bits: $0)}
-    let bits_per_line = bits[0].count
-    var max_bit_counts: [UInt8] = []
+    let bitsPerLine = bits[0].count
+    var maxBitCounts: [Int] = []
     
-    for i in 0...bits_per_line - 1 {
+    for i in 0...bitsPerLine - 1 {
         
-        let mcb = get_most_common_bit(for: data, at: i)
+        let mcb = getMostCommonBit(for: data, at: i)
         
         switch mcb {
             
         case .zero:
-            max_bit_counts.append(UInt8(0))
+            maxBitCounts.append(Int(0))
         case .one:
-            max_bit_counts.append(UInt8(1))
+            maxBitCounts.append(Int(1))
         case .tie:
             fatalError("Shouldn't have gotten a tie when doing 3_1")
         }
@@ -32,24 +32,24 @@ func problem_3_1() -> Int{
     }
     
     //    print("max bits: \(max_bit_counts)")
-    let gamma_bits = max_bit_counts
-    let gamma = bit_arr_to_int(gamma_bits)
+    let gammaBits = maxBitCounts
+    let gamma = bitArrayToInt(gammaBits)
     let epsilon = ~gamma & 0xfff
     return gamma * epsilon
 }
 
 struct DataLine {
-    var bits: [UInt8] = []
+    var bits: [Int] = []
     
-    func bit(at ix: Int) -> UInt8 {
+    func bit(at ix: Int) -> Int {
         return self.bits[ix]
     }
 }
 
 func problem_3_2() -> Int {
-
     
-    func get_new_data_arr(for_arr arr: [DataLine], at ix: Int, keep: Int) -> [DataLine] {
+    
+    func getNewDataArr(forDataArray arr: [DataLine], at ix: Int, keep: Int) -> [DataLine] {
         var new_data: [DataLine] = []
         for data in arr {
             if (data.bit(at: ix) == keep) {
@@ -59,58 +59,60 @@ func problem_3_2() -> Int {
         return new_data
     }
     
-    let bits = problem_3_init_helper()
+    let bits = getProblem3Input()
     var data: [DataLine] = []
     
     for bitvec in bits {
         data.append(DataLine(bits: bitvec))
     }
     
-    let len_of_bit_arr = bits[0].count
+    let lenOfBitArr = bits[0].count
     
-    var data_for_ox = data
+    // Ox = oxygen. Make a copy here because end up messing with when calculating ox, and need a fresh copy for c02
+    var dataForOx = data
+    var dataForCO2 = data
     var ox: Int?
     var co2: Int?
     
     
-    for col_ix in 0...len_of_bit_arr - 1 { // TODO probably shouldn't harcode 11 here but ¯\_(ツ)_/¯
-        let mcb = get_most_common_bit(for: data_for_ox, at: col_ix)
+    for colIndex in 0...lenOfBitArr - 1 { // TODO probably shouldn't harcode 11 here but ¯\_(ツ)_/¯
+        let mcb = getMostCommonBit(for: dataForOx, at: colIndex)
         //        print(data_for_ox)
         
         switch mcb {
             
         case .zero:
-            data_for_ox = get_new_data_arr(for_arr: data_for_ox, at: col_ix, keep: 0)
+            dataForOx = getNewDataArr(forDataArray: dataForOx, at: colIndex, keep: 0)
         case .one:
-            data_for_ox = get_new_data_arr(for_arr: data_for_ox, at: col_ix, keep: 1)
+            dataForOx = getNewDataArr(forDataArray: dataForOx, at: colIndex, keep: 1)
         case .tie:
-            data_for_ox = get_new_data_arr(for_arr: data_for_ox, at: col_ix, keep: 1)
+            dataForOx = getNewDataArr(forDataArray: dataForOx, at: colIndex, keep: 1)
             
         }
         
-        if data_for_ox.count == 1 {
-            ox = bit_arr_to_int(data_for_ox[0].bits)
+        if dataForOx.count == 1 {
+            ox = bitArrayToInt(dataForOx[0].bits)
             break
         }
     }
     
-    for col_ix in 0...len_of_bit_arr - 1 {
-        let mcb = get_most_common_bit(for: data, at: col_ix)
+    for colIndex in 0...lenOfBitArr - 1 {
+        let mcb = getMostCommonBit(for: dataForCO2, at: colIndex)
         //        print(data)
         
         switch mcb {
             
         case .zero:
-            data = get_new_data_arr(for_arr: data, at: col_ix, keep: 1)
+            dataForCO2 = getNewDataArr(forDataArray: dataForCO2, at: colIndex, keep: 1)
         case .one:
-            data = get_new_data_arr(for_arr: data, at: col_ix, keep: 0)
+            dataForCO2 = getNewDataArr(forDataArray: dataForCO2, at: colIndex, keep: 0)
         case .tie:
-            data = get_new_data_arr(for_arr: data, at: col_ix, keep: 0)
+            dataForCO2 = getNewDataArr(forDataArray: dataForCO2, at: colIndex, keep: 0)
             
         }
         
-        if data.count == 1 {
-            co2 = bit_arr_to_int(data[0].bits)
+        if dataForCO2.count == 1 {
+            co2 = bitArrayToInt(dataForCO2[0].bits)
             break
         }
     }
@@ -122,19 +124,19 @@ func problem_3_2() -> Int {
 
 
 
-fileprivate func problem_3_init_helper() -> [[UInt8]]{
+fileprivate func getProblem3Input() -> [[Int]] {
     let filename = "inputs/input-3.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
     
-    var bits: [[UInt8]] = []
+    var bits: [[Int]] = []
     
     
     
     for line in lines {
-        var cur: [UInt8] = []
+        var cur: [Int] = []
         for char in line {
-            let b = char == "1" ? UInt8(1) : UInt8(0)
+            let b = char == "1" ? Int(1) : Int(0)
             cur.append(b)
         }
         bits.append(cur)
@@ -143,7 +145,7 @@ fileprivate func problem_3_init_helper() -> [[UInt8]]{
     return bits
 }
 
-fileprivate func bit_arr_to_int(_ arr: [UInt8]) -> Int {
+fileprivate func bitArrayToInt(_ arr: [Int]) -> Int {
     var sum: Int = 0
     
     for (i, e) in arr.reversed().enumerated() {
@@ -158,20 +160,20 @@ enum CountResult {
     case zero, one, tie
 }
 
-func get_most_common_bit(for arr: [DataLine], at ix: Int) -> CountResult {
-    var zero_count = 0
-    var one_count = 0
+func getMostCommonBit(for arr: [DataLine], at ix: Int) -> CountResult {
+    var zeroCount = 0
+    var oneCount = 0
     for bitvec in arr {
         if bitvec.bit(at: ix) == 0 {
-            zero_count += 1
+            zeroCount += 1
         } else {
-            one_count += 1
+            oneCount += 1
         }
     }
     
-    if one_count > zero_count {
+    if oneCount > zeroCount {
         return CountResult.one
-    } else if zero_count > one_count {
+    } else if zeroCount > oneCount {
         return CountResult.zero
     } else {
         return CountResult.tie

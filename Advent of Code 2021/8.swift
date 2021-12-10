@@ -11,25 +11,25 @@ func problem_8_1() -> Int {
     let filename = "inputs/input-8.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
-    var output_values: [String] = []
+    var outputValues: [String] = []
     for line in lines {
         let outputs = line.split(separator: "|")[1]
         let codes = outputs.split(separator: " ").map({String($0)})
-        output_values.append(contentsOf: codes)
+        outputValues.append(contentsOf: codes)
     }
-    let result = output_values.filter({ $0.count == 4 || $0.count == 2 || $0.count == 3 || $0.count == 7}).count
+    let result = outputValues.filter({ $0.count == 4 || $0.count == 2 || $0.count == 3 || $0.count == 7}).count
     
     return result
 }
 
-fileprivate func remove_already_determined_chars_from_other_sets(_ set_list: inout [Set<Character>]) {
-    for s in set_list {
+fileprivate func removeAlreadyDeterminedCharsFromOtherSets(_ setList: inout [Set<Character>]) {
+    for s in setList {
         if s.count == 1 {
-            let char_to_remove = s.first!
+            let charToRemove = s.first!
             
             // go through the other sets that have more than one element, and contain the char we are trying to remove
-            for index_to_update in set_list.enumerated().filter({$1.count > 1 && $1.contains(char_to_remove)}).map({$0.0}) {
-                set_list[index_to_update].remove(char_to_remove)
+            for indexToUpdate in setList.enumerated().filter({$1.count > 1 && $1.contains(charToRemove)}).map({$0.0}) {
+                setList[indexToUpdate].remove(charToRemove)
             }
         }
     }
@@ -39,12 +39,12 @@ func problem_8_2() -> Int {
     let filename = "inputs/input-8.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
-    var input_data: [([String], [String])] = []
+    var inputData: [([String], [String])] = []
     for line in lines {
         let outputs = line.split(separator: "|")[1]
-        let signal_patterns = line.split(separator: "|")[0].split(separator: " ").map({String($0)})
+        let signalPatterns = line.split(separator: "|")[0].split(separator: " ").map({String($0)})
         let codes = outputs.split(separator: " ").map({String($0)})
-        input_data.append((signal_patterns, codes))
+        inputData.append((signalPatterns, codes))
     }
     
     var results: [Int] = []
@@ -52,54 +52,54 @@ func problem_8_2() -> Int {
     
     
     
-    for (signal_patterns, output_codes) in input_data {
-        var possible_top_top: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"]) // very top
-        var possible_top_right: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"]) // clockwise to the rigth
-        var possible_bottom_right: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"])
-        var possible_bottom_bottom: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"])
-        var possible_bottom_left: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"])
-        var possible_top_left: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"])
-        var possible_middle: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"])
+    for (signalPatterns, outputCodes) in inputData {
+        var possibleTopTop: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"]) // very top
+        var possibleTopRight: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"]) // clockwise to the rigth
+        var possibleBottomRight: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"])
+        var possibleBottomBottom: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"])
+        var possibleBottomLeft: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"])
+        var possibleTopLeft: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"])
+        var possibleMiddle: Set<Character> = Set(["a", "b" , "c", "d", "e", "f", "g"])
         
-        for pattern in signal_patterns {
-            let unique_chars = Set(pattern)
+        for pattern in signalPatterns {
+            let uniqueChars = Set(pattern)
             if pattern.count == 2 { // 1
-                possible_top_right.formIntersection(unique_chars)
-                possible_bottom_right.formIntersection(unique_chars)
+                possibleTopRight.formIntersection(uniqueChars)
+                possibleBottomRight.formIntersection(uniqueChars)
                 
-                possible_top_top = possible_top_top.filter({!unique_chars.contains($0)})
-                possible_bottom_bottom = possible_bottom_bottom.filter({!unique_chars.contains($0)})
-                possible_bottom_left = possible_bottom_left.filter({!unique_chars.contains($0)})
-                possible_top_left = possible_top_left.filter({!unique_chars.contains($0)})
-                possible_middle = possible_middle.filter({!unique_chars.contains($0)})
+                possibleTopTop = possibleTopTop.filter({!uniqueChars.contains($0)})
+                possibleBottomBottom = possibleBottomBottom.filter({!uniqueChars.contains($0)})
+                possibleBottomLeft = possibleBottomLeft.filter({!uniqueChars.contains($0)})
+                possibleTopLeft = possibleTopLeft.filter({!uniqueChars.contains($0)})
+                possibleMiddle = possibleMiddle.filter({!uniqueChars.contains($0)})
             } else if pattern.count == 3 { // 7
-                possible_top_top.formIntersection(unique_chars)
-                possible_top_right.formIntersection(unique_chars)
-                possible_bottom_right.formIntersection(unique_chars)
+                possibleTopTop.formIntersection(uniqueChars)
+                possibleTopRight.formIntersection(uniqueChars)
+                possibleBottomRight.formIntersection(uniqueChars)
                 
-                possible_bottom_bottom = possible_bottom_bottom.filter({!unique_chars.contains($0)})
-                possible_bottom_left = possible_bottom_left.filter({!unique_chars.contains($0)})
-                possible_middle = possible_middle.filter({!unique_chars.contains($0)})
-                possible_top_left = possible_top_left.filter({!unique_chars.contains($0)})
+                possibleBottomBottom = possibleBottomBottom.filter({!uniqueChars.contains($0)})
+                possibleBottomLeft = possibleBottomLeft.filter({!uniqueChars.contains($0)})
+                possibleMiddle = possibleMiddle.filter({!uniqueChars.contains($0)})
+                possibleTopLeft = possibleTopLeft.filter({!uniqueChars.contains($0)})
             } else if pattern.count == 4 { // 4
-                possible_top_right.formIntersection(unique_chars)
-                possible_bottom_right.formIntersection(unique_chars)
-                possible_middle.formIntersection(unique_chars)
-                possible_top_left.formIntersection(unique_chars)
+                possibleTopRight.formIntersection(uniqueChars)
+                possibleBottomRight.formIntersection(uniqueChars)
+                possibleMiddle.formIntersection(uniqueChars)
+                possibleTopLeft.formIntersection(uniqueChars)
                 
-                possible_top_top = possible_top_top.filter({!unique_chars.contains($0)})
-                possible_bottom_bottom = possible_bottom_bottom.filter({!unique_chars.contains($0)})
-                possible_bottom_left = possible_bottom_left.filter({!unique_chars.contains($0)})
+                possibleTopTop = possibleTopTop.filter({!uniqueChars.contains($0)})
+                possibleBottomBottom = possibleBottomBottom.filter({!uniqueChars.contains($0)})
+                possibleBottomLeft = possibleBottomLeft.filter({!uniqueChars.contains($0)})
             } else if pattern.count == 5 { // either a 2, 3 or a 5
                 // we don't know what it for certain is, but the top, middle, bottom are all lit up for this.
-                possible_top_top = possible_top_top.filter({unique_chars.contains($0)})
-                possible_bottom_bottom = possible_bottom_bottom.filter({unique_chars.contains($0)})
-                possible_middle = possible_middle.filter({unique_chars.contains($0)})
+                possibleTopTop = possibleTopTop.filter({uniqueChars.contains($0)})
+                possibleBottomBottom = possibleBottomBottom.filter({uniqueChars.contains($0)})
+                possibleMiddle = possibleMiddle.filter({uniqueChars.contains($0)})
             } else if pattern.count == 6 { // either a 0, 6, or a 9
-                possible_top_top = possible_top_top.filter({unique_chars.contains($0)})
-                possible_bottom_bottom = possible_bottom_bottom.filter({unique_chars.contains($0)})
-                possible_top_left = possible_top_left.filter({unique_chars.contains($0)})
-                possible_bottom_right = possible_bottom_right.filter({unique_chars.contains($0)})
+                possibleTopTop = possibleTopTop.filter({uniqueChars.contains($0)})
+                possibleBottomBottom = possibleBottomBottom.filter({uniqueChars.contains($0)})
+                possibleTopLeft = possibleTopLeft.filter({uniqueChars.contains($0)})
+                possibleBottomRight = possibleBottomRight.filter({uniqueChars.contains($0)})
                 
             }
             
@@ -108,51 +108,51 @@ func problem_8_2() -> Int {
             // If we only have one char left, then we can remove it from the other lists
             
             // probably a better way to do this, but we will through everything into a list, modify the list elements, then read them out of the list at the end
-            var set_list = [possible_top_top, possible_top_right, possible_bottom_right, possible_bottom_bottom, possible_bottom_left, possible_top_left, possible_middle]
+            var setList = [possibleTopTop, possibleTopRight, possibleBottomRight, possibleBottomBottom, possibleBottomLeft, possibleTopLeft, possibleMiddle]
             
-            remove_already_determined_chars_from_other_sets(&set_list)
+            removeAlreadyDeterminedCharsFromOtherSets(&setList)
             
-            possible_top_top = set_list[0]
-            possible_top_right = set_list[1]
-            possible_bottom_right = set_list[2]
-            possible_bottom_bottom = set_list[3]
-            possible_bottom_left = set_list[4]
-            possible_top_left = set_list[5]
-            possible_middle = set_list[6]
+            possibleTopTop = setList[0]
+            possibleTopRight = setList[1]
+            possibleBottomRight = setList[2]
+            possibleBottomBottom = setList[3]
+            possibleBottomLeft = setList[4]
+            possibleTopLeft = setList[5]
+            possibleMiddle = setList[6]
         }
         
         // We have figured out what each segment's charachter is! Now time to decode
         
         // sanity check that all of these only have one element
-        let set_list = [possible_top_top, possible_top_right, possible_bottom_right, possible_bottom_bottom, possible_bottom_left, possible_top_left, possible_middle]
-        assert(set_list.map({$0.count}).allSatisfy({$0 == 1}))
+        let setList = [possibleTopTop, possibleTopRight, possibleBottomRight, possibleBottomBottom, possibleBottomLeft, possibleTopLeft, possibleMiddle]
+        assert(setList.map({$0.count}).allSatisfy({$0 == 1}))
         
-        let top_top = possible_top_top.first!
-        let top_right = possible_top_right.first!
-        let bottom_right = possible_bottom_right.first!
-        let bottom_bottom = possible_bottom_bottom.first!
-        let bottom_left = possible_bottom_left.first!
-        let top_left = possible_top_left.first!
-        let middle = possible_middle.first!
+        let topTop = possibleTopTop.first!
+        let topRight = possibleTopRight.first!
+        let bottomRight = possibleBottomRight.first!
+        let bottomBottom = possibleBottomBottom.first!
+        let bottomLeft = possibleBottomLeft.first!
+        let topLeft = possibleTopLeft.first!
+        let middle = possibleMiddle.first!
         
-        let zero = (0, Set([top_right, bottom_right, bottom_bottom, bottom_left, top_left, top_top]))
-        let one = (1, Set([top_right, bottom_right]))
-        let two = (2, Set([top_top, top_right, middle, bottom_left, bottom_bottom]))
-        let three = (3, Set([top_top, top_right, middle, bottom_right, bottom_bottom]))
-        let four = (4, Set([top_left, middle, top_right, bottom_right]))
-        let five = (5, Set([top_top, top_left, middle, bottom_right, bottom_bottom]))
-        let six = (6, Set([top_top, top_left, middle, bottom_right, bottom_bottom, bottom_left]))
-        let seven = (7, Set([top_top, top_right, bottom_right]))
-        let eight = (8, Set([top_top, top_right, top_left, middle, bottom_left, bottom_right, bottom_bottom]))
-        let nine = (9, Set([top_top, top_right, top_left, middle, bottom_right, bottom_bottom]))
+        let zero = (0, Set([topRight, bottomRight, bottomBottom, bottomLeft, topLeft, topTop]))
+        let one = (1, Set([topRight, bottomRight]))
+        let two = (2, Set([topTop, topRight, middle, bottomLeft, bottomBottom]))
+        let three = (3, Set([topTop, topRight, middle, bottomRight, bottomBottom]))
+        let four = (4, Set([topLeft, middle, topRight, bottomRight]))
+        let five = (5, Set([topTop, topLeft, middle, bottomRight, bottomBottom]))
+        let six = (6, Set([topTop, topLeft, middle, bottomRight, bottomBottom, bottomLeft]))
+        let seven = (7, Set([topTop, topRight, bottomRight]))
+        let eight = (8, Set([topTop, topRight, topLeft, middle, bottomLeft, bottomRight, bottomBottom]))
+        let nine = (9, Set([topTop, topRight, topLeft, middle, bottomRight, bottomBottom]))
         
         let digits = [zero, one, two, three, four, five, six, seven, eight, nine]
         
         var result = 0
         
-        for output_code in output_codes.map({Set($0)}) {
-            for (num, lights_for_num) in digits {
-                if output_code == lights_for_num {
+        for outputCode in outputCodes.map({Set($0)}) {
+            for (num, lightsForNum) in digits {
+                if outputCode == lightsForNum {
                     result += num
                     result *= 10
                 }

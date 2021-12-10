@@ -30,8 +30,8 @@ func problem_1_2() -> Int {
     var chunks: [[Int]] = []
     
     for i in 0...(nums.count - 3) {
-        let new_arr = [nums[i], nums[i+1], nums[i+2]]
-        chunks.append(new_arr)
+        let newArr = [nums[i], nums[i+1], nums[i+2]]
+        chunks.append(newArr)
     }
     
     let sums = chunks.map {$0[0] + $0[1] + $0[2]}

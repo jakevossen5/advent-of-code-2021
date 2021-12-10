@@ -26,7 +26,7 @@ extension Point: Hashable {
 
 
 
-fileprivate func problem_5(consider_diagonals: Bool) -> Int {
+fileprivate func problem_5(considerDiagonals: Bool) -> Int {
     let filename = "inputs/input-5.txt"
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
@@ -34,16 +34,16 @@ fileprivate func problem_5(consider_diagonals: Bool) -> Int {
     var vents: [(Point, Point)] = []
     
     for line in lines {
-        let nums_in_line = line.filter { $0.isNumber || $0 == "," || $0 == "-"}
+        let numsInLine = line.filter { $0.isNumber || $0 == "," || $0 == "-"}
             .replacingOccurrences(of: "-", with: ",")
             .split(separator: ",")
             .map({Int($0)!})
         
-        let from: Point = Point(x: nums_in_line[0], y: nums_in_line[1])
-        let to: Point = Point(x: nums_in_line[2], y: nums_in_line[3])
+        let from: Point = Point(x: numsInLine[0], y: numsInLine[1])
+        let to: Point = Point(x: numsInLine[2], y: numsInLine[3])
         let vent = (from, to)
         
-        if (!consider_diagonals) {
+        if (!considerDiagonals) {
             if (from.x == to.x || from.y == to.y) {
                 vents.append(vent)
             }
@@ -57,30 +57,30 @@ fileprivate func problem_5(consider_diagonals: Bool) -> Int {
     
     for (from, to) in vents {
 
-        var cur_x = from.x
-        var cur_y = from.y
+        var curX = from.x
+        var curY = from.y
         
         while (true) {
-            let result = board[Point(x: cur_x, y: cur_y)]
+            let result = board[Point(x: curX, y: curY)]
             if result == nil {
-                board[Point(x: cur_x, y: cur_y)] = 1
+                board[Point(x: curX, y: curY)] = 1
             } else {
-                board[Point(x: cur_x, y: cur_y)] = result! + 1
+                board[Point(x: curX, y: curY)] = result! + 1
             }
             
-            if (cur_x == to.x && cur_y == to.y) {
+            if (curX == to.x && curY == to.y) {
                 break
             }
             
             if (from.x < to.x) {
-                cur_x += 1
+                curX += 1
             } else if (from.x > to.x) {
-                cur_x -= 1
+                curX -= 1
             }
             if (from.y < to.y) {
-                cur_y += 1
+                curY += 1
             } else if (from.y > to.y) {
-                cur_y -= 1
+                curY -= 1
             }
             
         }
@@ -95,9 +95,9 @@ fileprivate func problem_5(consider_diagonals: Bool) -> Int {
 
 
 func problem_5_1() -> Int {
-    return problem_5(consider_diagonals: false)
+    return problem_5(considerDiagonals: false)
 }
 
 func problem_5_2() -> Int {
-    return problem_5(consider_diagonals: true)
+    return problem_5(considerDiagonals: true)
 }

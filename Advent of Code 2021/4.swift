@@ -14,13 +14,13 @@ func problem_4_1() -> Int {
     let (boards, picks) = get_input_4()
     
     for i in 0..<picks.count {
-        let current_picks = picks[0...i]
+        let currentPicks = picks[0...i]
         
         for board in boards {
-            let result = board_scorer(board: board, picks: [Int](current_picks))
+            let result = boardScorer(board: board, picks: [Int](currentPicks))
             if let score = result {
-                let most_recent_pick = current_picks.last!
-                return most_recent_pick * score
+                let mostRecentPick = currentPicks.last!
+                return mostRecentPick * score
             }
         }
     }
@@ -32,21 +32,21 @@ func problem_4_2() -> Int {
     var (boards, picks) = get_input_4()
     
     for i in 0..<picks.count {
-        let current_picks = picks[0...i]
+        let currentPicks = picks[0...i]
         
-        var remaining_boards: [BingoBoard] = []
+        var remainingBoards: [BingoBoard] = []
 
         for board in boards {
-            let result = board_scorer(board: board, picks: [Int](current_picks))
+            let result = boardScorer(board: board, picks: [Int](currentPicks))
             if let score = result {
                 if boards.count == 1 {
-                    return score * current_picks.last!
+                    return score * currentPicks.last!
                 }
             } else {
-                remaining_boards.append(board)
+                remainingBoards.append(board)
             }
         }
-        boards = remaining_boards
+        boards = remainingBoards
         
     }
     
@@ -55,7 +55,7 @@ func problem_4_2() -> Int {
 
 
 
-fileprivate func board_scorer(board: BingoBoard, picks: [Int]) -> Int? {
+fileprivate func boardScorer(board: BingoBoard, picks: [Int]) -> Int? {
     
     let hoz_0 = Set(board[0])
     let hoz_1 = Set(board[1])
@@ -88,13 +88,13 @@ fileprivate func board_scorer(board: BingoBoard, picks: [Int]) -> Int? {
         }
     }
     
-    let everything_to_check = Set([hoz_0, hoz_1, hoz_2, hoz_3, hoz_4, vert_0, vert_1, vert_2, vert_3, vert_4])
+    let everythingToCheck = Set([hoz_0, hoz_1, hoz_2, hoz_3, hoz_4, vert_0, vert_1, vert_2, vert_3, vert_4])
     
-    let picks_set = Set(picks)
+    let picksSet = Set(picks)
     
-    for e in everything_to_check {
-        if e.isSubset(of: picks_set) {
-            let score = board.joined().filter {!picks_set.contains($0)}.reduce(0, {x, y in x + y})
+    for e in everythingToCheck {
+        if e.isSubset(of: picksSet) {
+            let score = board.joined().filter {!picksSet.contains($0)}.reduce(0, {x, y in x + y})
             return score
         }
     }
@@ -108,24 +108,24 @@ fileprivate func get_input_4() -> ([BingoBoard], [Int]) {
     let contents = try! String(contentsOfFile: filename)
     let lines = contents.split(separator:"\n")
     
-    let first_line = lines[0]
+    let firstLine = lines[0]
     
     var boards: [BingoBoard] = []
     
     var offset = 1
     while offset < lines.count - 4 {
-        var new_board: BingoBoard = []
+        var newBoard: BingoBoard = []
         for i in offset...offset+4 {
-            let cur_line = lines[i]
-            let cur_values = cur_line.split(separator: " ").map {Int($0)!}
-            guard !cur_values.isEmpty else {
+            let curLine = lines[i]
+            let curValues = curLine.split(separator: " ").map {Int($0)!}
+            guard !curValues.isEmpty else {
                 fatalError("Couldn't get any values")
             }
             //            print("adding \(cur_values) to current board")
-            new_board.append(cur_values)
+            newBoard.append(curValues)
         }
         offset += 5
-        boards.append(new_board)
+        boards.append(newBoard)
     }
     
     // printing boards in a resonable format
@@ -137,8 +137,7 @@ fileprivate func get_input_4() -> ([BingoBoard], [Int]) {
     //    }
     
     
-    let picks = first_line.split(separator: ",").map {Int($0)!}
-    //    print("picks: \(picks)")
+    let picks = firstLine.split(separator: ",").map {Int($0)!}
     
     return (boards, picks)
 }
