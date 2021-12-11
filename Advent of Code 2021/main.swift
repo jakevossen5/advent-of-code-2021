@@ -79,6 +79,8 @@ func main() {
     assert(p_9_2 == 1050192)
     assert(p_10_1 == 464991)
     assert(p_10_2 == 3662008566)
+    assert(p_11_1 == 1743)
+    assert(p_11_2 == 364)
     
 
 }
