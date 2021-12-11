@@ -18,6 +18,7 @@
 		DFE10C81275739220078C99C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE10C80275739220078C99C /* main.swift */; };
 		DFF472E12760719100D03142 /* 8.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF472E02760719100D03142 /* 8.swift */; };
 		DFF82B8327592B6800F2EF7F /* 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF82B8227592B6800F2EF7F /* 2.swift */; };
+		DFFE1CB3276466E100BDD541 /* 11.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFE1CB2276466E100BDD541 /* 11.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +62,9 @@
 		DFF82B8227592B6800F2EF7F /* 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 2.swift; sourceTree = "<group>"; };
 		DFF82B8627592CA200F2EF7F /* input-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "input-2.txt"; sourceTree = "<group>"; };
 		DFF82B8727592CA200F2EF7F /* input-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "input-1.txt"; sourceTree = "<group>"; };
+		DFFE1CAF276466BE00BDD541 /* input-11.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "input-11.txt"; sourceTree = "<group>"; };
+		DFFE1CB1276466D700BDD541 /* input-11.tst.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "input-11.tst.txt"; sourceTree = "<group>"; };
+		DFFE1CB2276466E100BDD541 /* 11.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 11.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,7 @@
 				DFF472E02760719100D03142 /* 8.swift */,
 				DF1F3E572761CCE0006C3FD1 /* 9.swift */,
 				DF246CC627631660004D6880 /* 10.swift */,
+				DFFE1CB2276466E100BDD541 /* 11.swift */,
 			);
 			path = "Advent of Code 2021";
 			sourceTree = "<group>";
@@ -128,6 +133,8 @@
 				DF1F3E562761CCD3006C3FD1 /* input-9.txt */,
 				DF246CC827631707004D6880 /* input-10.tst.txt */,
 				DF6B1D2527631E700001DF76 /* input-10.txt */,
+				DFFE1CAF276466BE00BDD541 /* input-11.txt */,
+				DFFE1CB1276466D700BDD541 /* input-11.tst.txt */,
 			);
 			path = inputs;
 			sourceTree = "<group>";
@@ -195,6 +202,7 @@
 				DFDE1CFC275F1D9B008E9A6C /* 7.swift in Sources */,
 				DF63322E275DCBCD0003F10D /* 6.swift in Sources */,
 				DF1F3E582761CCE0006C3FD1 /* 9.swift in Sources */,
+				DFFE1CB3276466E100BDD541 /* 11.swift in Sources */,
 				DFACC7F42759E603006E75C8 /* 3.swift in Sources */,
 				DFF472E12760719100D03142 /* 8.swift in Sources */,
 				DFE10C81275739220078C99C /* main.swift in Sources */,
