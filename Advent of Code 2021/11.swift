@@ -9,8 +9,8 @@ import Foundation
 
 fileprivate typealias Board = [[Int]]
 
-// returns list of indexes that flashed
-fileprivate func runStep(board: inout Board) -> [(Int, Int)] {
+// returns the number of board elements changed
+fileprivate func runStep(board: inout Board) -> Int {
     
     
     let rowCount = board.count
@@ -54,7 +54,7 @@ fileprivate func runStep(board: inout Board) -> [(Int, Int)] {
             }
         }
     }
-    return alreadyFlashed
+    return alreadyFlashed.count
 }
 
 func problem_11_1() -> Int {
@@ -65,7 +65,7 @@ func problem_11_1() -> Int {
     
     for _ in 1...100 {
         let flashedThisStep = runStep(board: &board)
-        flashCount += flashedThisStep.count
+        flashCount += flashedThisStep
     }
     
     return flashCount
@@ -80,7 +80,7 @@ func problem_11_2() -> Int {
     
     for step in 1... {
         let updated = runStep(board: &board)
-        if updated.count == rowCount * colCount {
+        if updated == rowCount * colCount {
             return step
         }
     }
