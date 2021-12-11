@@ -13,42 +13,42 @@ fileprivate typealias Board = [[Int]]
 fileprivate func runStep(board: inout Board) -> [(Int, Int)] {
     
     
-    let row_count = board.count
-    let col_count = board[0].count
+    let rowCount = board.count
+    let colCount = board[0].count
     
     // increase everything by one
-    for rowIx in 0..<row_count {
-        for colIx in 0..<col_count {
+    for rowIx in 0..<rowCount {
+        for colIx in 0..<colCount {
             board[rowIx][colIx] += 1
         }
     }
     
     
-    var change = true
+    var fixedPoint = false
     var alreadyFlashed: [(Int, Int)] = []
 
-    while change {
-        var current_change = false
+    while !fixedPoint {
+        var currentChange = false
 
-        for rowIx in 0..<row_count {
-            for colIx in 0..<col_count {
+        for rowIx in 0..<rowCount {
+            for colIx in 0..<colCount {
                 let octCurLevel = board[rowIx][colIx]
                 if octCurLevel > 9 && !alreadyFlashed.contains(where: {$0 == (rowIx, colIx)}) {
                     let increaseResult = increaseAdjacentNodes(board: &board, rowIx: rowIx, colIx: colIx)
                     if increaseResult {
-                        current_change = true
+                        currentChange = true
                     }
                     alreadyFlashed.append((rowIx, colIx))
                 }
             }
             
         }
-        change = current_change
+        fixedPoint = !currentChange
     }
     
     // set all the >9s to zero
-    for rowIx in 0..<row_count {
-        for colIx in 0..<col_count {
+    for rowIx in 0..<rowCount {
+        for colIx in 0..<colCount {
             if (board[rowIx][colIx] > 9) {
                 board[rowIx][colIx] = 0
             }
@@ -75,12 +75,12 @@ func problem_11_2() -> Int {
 
     var board = getInput()
     
-    let row_count = board.count
-    let col_count = board[0].count
+    let rowCount = board.count
+    let colCount = board[0].count
     
     for step in 1... {
         let updated = runStep(board: &board)
-        if updated.count == row_count * col_count {
+        if updated.count == rowCount * colCount {
             return step
         }
     }
