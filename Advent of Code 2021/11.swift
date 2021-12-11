@@ -78,9 +78,11 @@ func problem_11_2() -> Int {
     let rowCount = board.count
     let colCount = board[0].count
     
+    let totalOctopusCount = rowCount * colCount
+    
     for step in 1... {
         let updated = runStep(board: &board)
-        if updated == rowCount * colCount {
+        if updated == totalOctopusCount {
             return step
         }
     }
