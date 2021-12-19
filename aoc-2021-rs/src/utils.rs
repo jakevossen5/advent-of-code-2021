@@ -1,6 +1,4 @@
 use std::{
-    collections::{HashMap, HashSet, VecDeque},
-    fmt::format,
     fs::File,
     io::{BufRead, BufReader},
 };

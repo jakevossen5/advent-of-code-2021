@@ -1,8 +1,6 @@
 use std::{
-    collections::{HashMap, HashSet, VecDeque},
-    fmt::format,
-    fs::File,
-    io::{BufRead, BufReader},
+    collections::{HashMap, HashSet},
+    io::BufRead,
 };
 
 use crate::utils::get_input_lines;
@@ -79,7 +77,7 @@ pub fn day_12_2() -> usize {
         cur: String,
         visited: HashSet<String>,
         graph: &HashMap<String, Vec<String>>,
-        used_double: bool
+        used_double: bool,
     ) -> usize {
         if cur == "end".to_string() {
             return 1;
@@ -95,7 +93,6 @@ pub fn day_12_2() -> usize {
                 if used_double {
                     continue;
                 } else {
-
                     count += paths_rec(neighbor.to_string(), visited.clone(), graph, true);
                     continue;
                 }
