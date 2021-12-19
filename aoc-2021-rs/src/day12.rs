@@ -10,9 +10,6 @@ pub fn day_12_1() -> usize {
     // let lines = F
 
     let lines = get_input_lines("inputs/day-12.txt");
-    let mut explored: HashSet<String> = HashSet::new();
-    let mut queue: VecDeque<String> = VecDeque::new();
-
     let mut graph: HashMap<String, Vec<String>> = HashMap::new();
 
     for line in lines {
@@ -63,9 +60,6 @@ pub fn day_12_2() -> usize {
     // let lines = F
 
     let lines = get_input_lines("inputs/day-12.txt");
-    let mut explored: HashSet<String> = HashSet::new();
-    let mut queue: VecDeque<String> = VecDeque::new();
-
     let mut graph: HashMap<String, Vec<String>> = HashMap::new();
 
     for line in lines {
@@ -85,6 +79,7 @@ pub fn day_12_2() -> usize {
         cur: String,
         visited: HashSet<String>,
         graph: &HashMap<String, Vec<String>>,
+        used_double: bool
     ) -> usize {
         if cur == "end".to_string() {
             return 1;
@@ -97,14 +92,11 @@ pub fn day_12_2() -> usize {
                 continue;
             }
             if neighbor.to_string() == neighbor.to_lowercase() && visited.contains(neighbor) {
-                if visited.iter().any(|x| x.ends_with("_2")) {
+                if used_double {
                     continue;
                 } else {
-                    let mut new_visited = visited.clone();
-                    let next = format!("{}_2", neighbor);
-                    new_visited.insert(next);
 
-                    count += paths_rec(neighbor.to_string(), new_visited, graph);
+                    count += paths_rec(neighbor.to_string(), visited.clone(), graph, true);
                     continue;
                 }
             }
@@ -112,11 +104,11 @@ pub fn day_12_2() -> usize {
             let mut new_visited = visited.clone();
             new_visited.insert(neighbor.to_string());
 
-            count += paths_rec(neighbor.to_string(), new_visited, graph)
+            count += paths_rec(neighbor.to_string(), new_visited, graph, used_double)
         }
 
         count
     }
 
-    paths_rec("start".to_string(), HashSet::new(), &graph)
+    paths_rec("start".to_string(), HashSet::new(), &graph, false)
 }
