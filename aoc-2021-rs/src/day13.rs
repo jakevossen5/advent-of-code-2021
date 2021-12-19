@@ -50,9 +50,7 @@ pub fn day_13_1() -> usize {
     new_points.len()
 }
 
-
 pub fn day_13_2() -> HashSet<(isize, isize)> {
-
     let (mut points, folds) = day_13_input();
 
     for (axis, offset) in folds {
@@ -91,7 +89,6 @@ pub fn day_13_2() -> HashSet<(isize, isize)> {
         points = new_points
     }
 
-
     let max_x = *points.iter().map(|(x, _)| x).max().unwrap();
     let max_y = *points.iter().map(|(_, y)| y).max().unwrap();
 
@@ -107,8 +104,6 @@ pub fn day_13_2() -> HashSet<(isize, isize)> {
     }
 
     points
-
-
 }
 
 fn day_13_input() -> (HashSet<(isize, isize)>, Vec<(Axis, isize)>) {
