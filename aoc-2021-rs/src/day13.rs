@@ -45,8 +45,6 @@ pub fn day_13_1() -> usize {
         }
     }
 
-    println!("new points: {:?}", new_points);
-
     new_points.len()
 }
 
@@ -116,8 +114,6 @@ fn day_13_input() -> (HashSet<(isize, isize)>, Vec<(Axis, isize)>) {
         points.insert(point);
     }
 
-    println!("points: {:?}", points);
-
     let mut folds: Vec<(Axis, isize)> = Vec::new();
 
     for line in lines.iter().filter(|line| line.contains("=")) {
@@ -126,7 +122,6 @@ fn day_13_input() -> (HashSet<(isize, isize)>, Vec<(Axis, isize)>) {
 
         let fold_offset_str: String = line.chars().skip(prefix_len).collect();
         let fold_offset: isize = fold_offset_str.parse().unwrap();
-        println!("fold offset {}", fold_offset);
 
         if line.contains("x=") {
             folds.push((Axis::x, fold_offset))

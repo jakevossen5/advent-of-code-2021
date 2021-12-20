@@ -1,10 +1,11 @@
 use crate::{
     day12::day_12_1,
-    day13::{day_13_1, day_13_2},
+    day13::{day_13_1, day_13_2}, day14::{day_14_1, day_14_2},
 };
 
 mod day12;
 mod day13;
+mod day14;
 mod utils;
 
 fn main() {
@@ -12,6 +13,10 @@ fn main() {
     // println!("day_12_2: {:?}", day_12_2());
     println!("day_13_1: {:?}", day_13_1());
     println!("day_13_2: {:?}", day_13_2());
+    println!("day_14_1: {:?}", day_14_1());
+
+    println!("day_14_2: {:?}", day_14_2());
+
 }
 
 #[cfg(test)]
