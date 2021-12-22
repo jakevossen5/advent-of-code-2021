@@ -1,6 +1,8 @@
 use crate::{
     day12::day_12_1,
-    day13::{day_13_1, day_13_2}, day14::{day_14_1, day_14_2}, day15::{day_15_1, day_15_2},
+    day13::{day_13_1, day_13_2},
+    day14::{day_14_1, day_14_2},
+    day15::{day_15_1, day_15_2},
 };
 
 mod day12;
@@ -16,9 +18,8 @@ fn main() {
     println!("day_13_2: {:?}", day_13_2());
     println!("day_14_1: {:?}", day_14_1());
     println!("day_14_2: {:?}", day_14_2());
-    // println!("day_15_1: {:?}", day_15_1());
+    println!("day_15_1: {:?}", day_15_1());
     println!("day_15_2: {:?}", day_15_2());
-
 }
 
 #[cfg(test)]
@@ -28,6 +29,8 @@ mod tests {
     use crate::{
         day12::{day_12_1, day_12_2},
         day13::{day_13_1, day_13_2},
+        day14::{day_14_1, day_14_2},
+        day15::{day_15_1, day_15_2},
     };
 
     #[test]
@@ -149,5 +152,20 @@ mod tests {
         ]);
         assert_eq!(day_13_1(), 814);
         assert_eq!(day_13_2(), part_2_expected_result);
+    }
+
+    #[test]
+    fn day_14() {
+        assert_eq!(day_14_1(), 2874);
+        assert_eq!(day_14_2(), 5208377027195);
+    }
+
+    #[test]
+    fn day_15_1_test() {
+        assert_eq!(day_15_1(), 652);
+    }
+    #[test]
+    fn day_15_2_test() {
+        assert_eq!(day_15_2(), 2938);
     }
 }
