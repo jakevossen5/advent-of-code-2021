@@ -1,6 +1,5 @@
 use std::{
     collections::{HashMap, HashSet},
-    io::BufRead,
 };
 
 use crate::utils::get_input_lines;

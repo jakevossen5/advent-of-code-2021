@@ -1,10 +1,10 @@
-use std::{collections::HashSet, ops::RangeBounds};
+use std::{collections::HashSet};
 
 use crate::utils::get_input_lines;
 
 enum Axis {
-    x,
-    y,
+    X,
+    Y,
 }
 
 pub fn day_13_1() -> usize {
@@ -15,7 +15,7 @@ pub fn day_13_1() -> usize {
     let mut new_points: HashSet<(isize, isize)> = HashSet::new();
 
     match axis {
-        Axis::x => {
+        Axis::X => {
             // fold LEFT
 
             for (x, y) in points {
@@ -30,7 +30,7 @@ pub fn day_13_1() -> usize {
                 }
             }
         }
-        Axis::y => {
+        Axis::Y => {
             for (x, y) in points {
                 if y > *offset {
                     let distance_to_offset = y - offset;
@@ -55,7 +55,7 @@ pub fn day_13_2() -> HashSet<(isize, isize)> {
         let mut new_points: HashSet<(isize, isize)> = HashSet::new();
 
         match axis {
-            Axis::x => {
+            Axis::X => {
                 // fold LEFT
                 for (x, y) in &points {
                     if *x >= offset {
@@ -69,7 +69,7 @@ pub fn day_13_2() -> HashSet<(isize, isize)> {
                     }
                 }
             }
-            Axis::y => {
+            Axis::Y => {
                 for (x, y) in &points {
                     if *y >= offset {
                         let distance_to_offset = y - offset;
@@ -124,9 +124,9 @@ fn day_13_input() -> (HashSet<(isize, isize)>, Vec<(Axis, isize)>) {
         let fold_offset: isize = fold_offset_str.parse().unwrap();
 
         if line.contains("x=") {
-            folds.push((Axis::x, fold_offset))
+            folds.push((Axis::X, fold_offset))
         } else {
-            folds.push((Axis::y, fold_offset))
+            folds.push((Axis::Y, fold_offset))
         }
     }
 
